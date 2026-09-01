@@ -1,8 +1,7 @@
 # Batch Iterator for Dataset
 
 import torch
-from torch.utils.data import TensorDataset, DataLoader
-import numpy as np
+from torch.utils.data import TensorDataset, DataLoader import numpy as np
 
 
 def batch_iterator(X, y=None, batch_size=64):
