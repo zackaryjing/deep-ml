@@ -24,6 +24,8 @@ def forward_diffusion(x_0: torch.Tensor, t: int, beta_start: float, beta_end: fl
     return x_t
 
 def main():
+    result = forward_diffusion(torch.tensor([1.0], dtype=torch.float64), 1, 0.1, 0.2, 5, torch.tensor([1.0], dtype=torch.float64))
+    print(torch.round(result, decimals=4).numpy().tolist())
     
 
 if __name__ == "__main__":

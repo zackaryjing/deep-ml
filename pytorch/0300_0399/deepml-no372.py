@@ -1,5 +1,7 @@
 # problem: Implement RMSNorm (Root Mean Square Layer Normalization)
 
+
+import numpy as np
 import torch
 
 
@@ -15,10 +17,25 @@ def rmsnorm(x: torch.Tensor, g: torch.Tensor, eps: float = 1e-5) -> torch.Tensor
     Returns:
         torch.Tensor of same shape as x
     """
-    pass
+    n = x.shape[-1]
+    rms = torch.sqrt(torch.sum(x ** 2,dim=-1) / n + eps ) # [features]
+    # print(torch.sum(x ** 2,dim=0))
+    x_norm = x / rms[:,None] * g
+    return x_norm
+
+
 
 
 def main():
+    x = torch.tensor([[1.0, 2.0, 3.0]])
+    g = torch.tensor([1.0, 1.0, 1.0])
+    result = rmsnorm(x, g)
+    print(np.round(result.numpy(), 4).tolist())
+
+    x = torch.tensor([[1.0, 1.0, 1.0, 1.0], [2.0, 2.0, 2.0, 2.0]])
+    g = torch.tensor([1.0, 1.0, 1.0, 1.0])
+    result = rmsnorm(x, g)
+    print(np.round(result.numpy(), 4).tolist())
 
 
 if __name__ == "__main__":
